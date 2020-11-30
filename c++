@@ -5,9 +5,51 @@
 using namespace std;
 
 void verifVictory(int tab[6][7], int ligne, int colonne, int joueur) {
-	//lignes
-	//tab[ligne][colonne]
 	int compteur = 0;
+
+	//VERIF DIAGONAL 1
+	for (int offset = -3; offset <= 3; offset++) {
+		int currentLine = ligne + offset;
+		int currentColumn = colonne + offset;
+		if ((currentLine < 0 || currentLine > 5) || (currentColumn < 0 || currentColumn > 6)) {
+			continue;
+		}
+		if (tab[currentLine][currentColumn] == joueur) {
+			compteur++;
+			if (compteur >= 4) {
+				// GAGNE
+				cout << "GAGNE" << endl;
+			}
+		}
+		else {
+			compteur = 0;
+		}
+	}
+
+	compteur = 0;
+
+	//VERIF LIGNE
+	for (int j = ligne - 3; j <= ligne + 3; j++) {
+		if (j < 0 || j > 5) {
+			continue;
+		}
+		else {
+			if (tab[j][colonne] == joueur) {
+				compteur++;
+				if (compteur >= 4) {
+					// GAGNE
+					cout << "GAGNE" << endl;
+				}
+			}
+			else {
+				compteur = 0;
+			}
+		}
+	}
+
+	compteur = 0;
+
+	//VERIF COLONNE
 	for (int j = colonne - 3; j <= colonne + 3; j++) {
 		if (j < 0 || j > 6) {
 			continue;
@@ -25,11 +67,6 @@ void verifVictory(int tab[6][7], int ligne, int colonne, int joueur) {
 			}
 		}
 	}
-	cout << compteur << endl;
-	//colonnes
-
-	//diagonales
-
 }
 
 void show(int a[6][7]) {
